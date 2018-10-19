@@ -2,7 +2,8 @@
 SCRIPT_FILENAME="`cd \`dirname \"$0\"\`; pwd`/`basename \"$0\"`"
 SCRIPT_ROOT=$(dirname "$SCRIPT_FILENAME")
 
-IMAGE_NAME="buildenv-ubuntu-qt5"
+[ -z "$BE_UBUNTU_VERSION" ] && BE_UBUNTU_VERSION=18.04
+IMAGE_NAME="buildenv-ubuntu-${BE_UBUNTU_VERSION}-qt5"
 
 [[ -z "$1" || -z "$2" ]] && echo "$0 [workdir] [command] ..." && exit 1
 
@@ -38,7 +39,8 @@ shift 1
 cd "$SCRIPT_ROOT"
 
 set -e
-docker build -t "$IMAGE_NAME" docker
+
+docker build -t "$IMAGE_NAME" docker-$BE_UBUNTU_VERSION
 
 DOCKER_ADDITIONAL_PARAMS=""
 [ -t 1 ] && DOCKER_ADDITIONAL_PARAMS="-i"
