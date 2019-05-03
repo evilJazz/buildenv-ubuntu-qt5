@@ -12,7 +12,7 @@ before_script:
 build-18.04:
   stage: build
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/18.04:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04
   
   script:
     - docker build -t $IMAGE_TAG docker-18.04
@@ -22,7 +22,7 @@ build-16.04:
   stage: build
 
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/16.04:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04
 
   script:
     - docker build -t $IMAGE_TAG docker-16.04
