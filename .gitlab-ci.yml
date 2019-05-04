@@ -1,6 +1,6 @@
 image: docker:stable
 
-tags: 
+tags:
   - arm
 
 services:
