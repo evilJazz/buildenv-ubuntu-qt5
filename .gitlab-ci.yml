@@ -1,8 +1,5 @@
 image: docker:stable
 
-tags:
-  - arm
-
 services:
   - docker:dind
 
@@ -15,6 +12,10 @@ before_script:
 
 build-18.04:
   stage: build
+  
+  tags:
+  - arm
+  
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04
   
@@ -24,6 +25,9 @@ build-18.04:
     
 build-16.04:
   stage: build
+  
+  tags:
+  - arm
 
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04
