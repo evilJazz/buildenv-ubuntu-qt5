@@ -1,38 +1,57 @@
-image: docker:stable
-
-services:
-  - docker:dind
-
-variables:
-  DOCKER_HOST: tcp://docker:2375
-  DOCKER_DRIVER: overlay2
-
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-build-18.04:
+build-18.04-amd64:
   stage: build
   
   tags:
-  - docker
-  - arm
+  - shell-executor
+  - amd64 
   
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-amd64
   
   script:
     - docker build -t $IMAGE_TAG docker-18.04
     - docker push $IMAGE_TAG
     
-build-16.04:
+build-16.04-amd64:
   stage: build
   
   tags:
-  - docker
-  - arm
+  - shell-executor
+  - amd64
 
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-amd64
+
+  script:
+    - docker build -t $IMAGE_TAG docker-16.04
+    - docker push $IMAGE_TAG
+
+build-18.04-armhf:
+  stage: build
+  
+  tags:
+  - shell-executor
+  - armhf
+  
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-armhf
+  
+  script:
+    - docker build -t $IMAGE_TAG docker-18.04
+    - docker push $IMAGE_TAG
+    
+build-16.04-armhf:
+  stage: build
+  
+  tags:
+  - shell-executor
+  - armhf
+
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-armhf
 
   script:
     - docker build -t $IMAGE_TAG docker-16.04
