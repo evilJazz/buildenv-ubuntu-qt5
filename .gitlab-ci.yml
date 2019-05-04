@@ -1,9 +1,12 @@
 image: docker:stable
 
+tags: [arm, x86]
+
 services:
   - docker:dind
 
 variables:
+  DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
 
 before_script:
