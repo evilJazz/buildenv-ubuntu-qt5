@@ -1,6 +1,7 @@
 image: docker:stable
 
-tags: [arm, x86]
+tags: 
+  - arm
 
 services:
   - docker:dind
