@@ -1,3 +1,7 @@
+stages:
+  - build
+  - manifest
+
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
@@ -39,3 +43,24 @@ build-16.04-armhf:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-armhf
     IMAGE_SRC_PATH: docker-16.04
+
+.manifest:
+  tags:
+    - shell-executor
+    - armhf
+  variables:
+    DOCKER_CLI_EXPERIMENTAL: enabled
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04
+  script:
+    - docker manifest create $IMAGE_TAG ${IMAGE_TAG}-amd64 ${IMAGE_TAG}-armhf || true
+    - docker manifest push $IMAGE_TAG || true
+    
+manifest-16.04:
+  extends: .manifest
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04
+
+manifest-18.04:
+  extends: .manifest
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04
