@@ -1,58 +1,42 @@
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-build-18.04-amd64:
+.build:
   stage: build
-  
   tags:
   - shell-executor
-  - amd64 
-  
+  script:
+    - docker build -t $IMAGE_TAG $IMAGE_SRC_PATH
+    - docker push $IMAGE_TAG
+
+build-18.04-amd64:
+  extends: .build
+  tags:
+    - amd64
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-amd64
-  
-  script:
-    - docker build -t $IMAGE_TAG docker-18.04
-    - docker push $IMAGE_TAG
+    IMAGE_SRC_PATH: docker-18.04
     
 build-16.04-amd64:
-  stage: build
-  
+  extends: .build
   tags:
-  - shell-executor
-  - amd64
-
+    - amd64
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-amd64
-
-  script:
-    - docker build -t $IMAGE_TAG docker-16.04
-    - docker push $IMAGE_TAG
-
+    IMAGE_SRC_PATH: docker-16.04
+    
 build-18.04-armhf:
-  stage: build
-  
+  extends: .build
   tags:
-  - shell-executor
-  - armhf
-  
+    - armhf
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-armhf
-  
-  script:
-    - docker build -t $IMAGE_TAG docker-18.04
-    - docker push $IMAGE_TAG
+    IMAGE_SRC_PATH: docker-18.04
     
 build-16.04-armhf:
-  stage: build
-  
+  extends: .build
   tags:
-  - shell-executor
-  - armhf
-
+    - armhf
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-armhf
-
-  script:
-    - docker build -t $IMAGE_TAG docker-16.04
-    - docker push $IMAGE_TAG
+    IMAGE_SRC_PATH: docker-16.04
