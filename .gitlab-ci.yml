@@ -45,6 +45,7 @@ build-16.04-armhf:
     IMAGE_SRC_PATH: docker-16.04
 
 .manifest:
+  stage: manifest
   tags:
     - shell-executor
     - armhf
