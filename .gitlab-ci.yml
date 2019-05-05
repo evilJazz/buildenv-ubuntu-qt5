@@ -53,7 +53,7 @@ build-16.04-armhf:
     DOCKER_CLI_EXPERIMENTAL: enabled
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04
   script:
-    - docker manifest create $IMAGE_TAG ${IMAGE_TAG}-amd64 ${IMAGE_TAG}-armhf || true
+    - docker manifest create -a $IMAGE_TAG ${IMAGE_TAG}-amd64 ${IMAGE_TAG}-armhf || true
     - docker manifest push $IMAGE_TAG || true
     
 manifest-16.04:
