@@ -11,20 +11,20 @@ before_script:
   - shell-executor
   - amd64
   script:
-    - docker build -t $IMAGE_TAG $IMAGE_SRC_PATH
+    - ./build-image.sh $IMAGE_TAG $UBUNTU_VERSION
     - docker push $IMAGE_TAG
 
 build-18.04-amd64:
   extends: .build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-amd64
-    IMAGE_SRC_PATH: docker-18.04
+    UBUNTU_VERSION: 18.04
     
 build-16.04-amd64:
   extends: .build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-amd64
-    IMAGE_SRC_PATH: docker-16.04
+    UBUNTU_VERSION: 16.04
     
 build-18.04-armhf:
   extends: .build
@@ -33,7 +33,7 @@ build-18.04-armhf:
     - armhf
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-armhf
-    IMAGE_SRC_PATH: docker-18.04
+    UBUNTU_VERSION: 18.04
     
 build-16.04-armhf:
   extends: .build
@@ -42,7 +42,7 @@ build-16.04-armhf:
     - armhf
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-armhf
-    IMAGE_SRC_PATH: docker-16.04
+    UBUNTU_VERSION: 16.04
 
 .manifest:
   stage: manifest
