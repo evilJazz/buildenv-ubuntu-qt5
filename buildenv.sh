@@ -40,7 +40,7 @@ cd "$SCRIPT_ROOT"
 
 set -e
 
-docker build -t "$IMAGE_NAME" docker-$BE_UBUNTU_VERSION
+"$SCRIPT_ROOT/build-image.sh" "$IMAGE_NAME" $BE_UBUNTU_VERSION
 
 DOCKER_ADDITIONAL_PARAMS=""
 [ -t 1 ] && DOCKER_ADDITIONAL_PARAMS="-i"
