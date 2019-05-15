@@ -18,13 +18,13 @@ build-18.04-amd64:
   extends: .build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-amd64
-    UBUNTU_VERSION: 18.04
+    UBUNTU_VERSION: "18.04"
     
 build-16.04-amd64:
   extends: .build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-amd64
-    UBUNTU_VERSION: 16.04
+    UBUNTU_VERSION: "16.04"
     
 build-18.04-armhf:
   extends: .build
@@ -33,7 +33,7 @@ build-18.04-armhf:
     - armhf
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:18.04-armhf
-    UBUNTU_VERSION: 18.04
+    UBUNTU_VERSION: "18.04"
     
 build-16.04-armhf:
   extends: .build
@@ -42,7 +42,7 @@ build-16.04-armhf:
     - armhf
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:16.04-armhf
-    UBUNTU_VERSION: 16.04
+    UBUNTU_VERSION: "16.04"
 
 .manifest:
   stage: manifest
