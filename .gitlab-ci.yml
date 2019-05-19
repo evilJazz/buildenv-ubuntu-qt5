@@ -60,14 +60,14 @@ build-16.04-armhf:
     # Push manifest to local registry...
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker manifest create -a $IMAGE_TAG ${IMAGE_TAG}-amd64 ${IMAGE_TAG}-armhf || true
-    - docker manifest annotate $IMAGE_TAG ${IMAGE_TAG}-armhf --arch armv7l || true
+    - docker manifest annotate $IMAGE_TAG ${IMAGE_TAG}-armhf --arch arm --variant armv7l || true
     - docker manifest push $IMAGE_TAG || true
     # Push manifest to Docker Hub...
-    - export DOCKER_HUB_IMAGETAG="${IMAGE_TAG/$CI_REGISTRY\//}"
+    - export DOCKER_HUB_IMAGE_TAG="${IMAGE_TAG/$CI_REGISTRY\//}"
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-    - docker manifest create -a $DOCKER_HUB_IMAGETAG ${DOCKER_HUB_IMAGETAG}-amd64 ${DOCKER_HUB_IMAGETAG}-armhf || true
-    - docker manifest annotate $DOCKER_HUB_IMAGETAG ${DOCKER_HUB_IMAGETAG}-armhf --arch armv7l || true
-    - docker manifest push $DOCKER_HUB_IMAGETAG || true
+    - docker manifest create -a $DOCKER_HUB_IMAGE_TAG ${DOCKER_HUB_IMAGE_TAG}-amd64 ${DOCKER_HUB_IMAGE_TAG}-armhf || true
+    - docker manifest annotate $DOCKER_HUB_IMAGE_TAG ${DOCKER_HUB_IMAGE_TAG}-armhf --arch arm --variant armv7l || true
+    - docker manifest push $DOCKER_HUB_IMAGE_TAG || true
 
 manifest-16.04:
   extends: .manifest
