@@ -26,6 +26,7 @@ else
 fi
 
 WORK_DIR=$(realpath "$WORK_DIR")
+[ -z "$CONTAINER_WORK_DIR" ] && CONTAINER_WORK_DIR=/workdir
 
 cd "$SCRIPT_ROOT"
 
@@ -37,6 +38,6 @@ fi
 
 eval docker run --rm $DOCKER_ADDITIONAL_PARAMS -t \
     --volume "${IMAGE_NAME}-home:/home" \
-    --volume "$WORK_DIR:/workdir" \
+    --volume "$WORK_DIR:$CONTAINER_WORK_DIR" \
     "$IMAGE_NAME" \
-    --uid "$(id -u)" --gid "$(id -g)" "$@"
+    --uid "$(id -u)" --gid "$(id -g)" --workdir "$CONTAINER_WORK_DIR" "$@"
