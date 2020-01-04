@@ -37,7 +37,7 @@ else
 fi
 
 eval docker run --rm $DOCKER_ADDITIONAL_PARAMS -t \
-    --volume "${IMAGE_NAME}-home:/home" \
+    --volume "${IMAGE_NAME}-home-buildenv:/home/buildenv" \
     --volume "$WORK_DIR:$CONTAINER_WORK_DIR" \
     "$IMAGE_NAME" \
     --uid "$(id -u)" --gid "$(id -g)" --workdir "$CONTAINER_WORK_DIR" "$@"
